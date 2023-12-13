@@ -6,7 +6,7 @@ This is a recreation of the old Direct 3D test animation, which displayed a rota
 [(Danceswithcode.net) Quaternions](https://danceswithcode.net/engineeringnotes/quaternions/quaternions.html)
 [Wikipedia - Quaternion](https://en.wikipedia.org/wiki/Quaternion)
 
-Quaternions are not easy to understand at a mathematical level, but in practice, all you have is a vector defining an axis of rotation, and the angle of rotation around that vector.
+Quaternions are not easy to understand at a mathematic level, but in practice, all you have is a vector defining an axis of rotation, and the angle of rotation around that vector.
 
 The function getRotationMatrixFromQuaternion() creates a rotation matrix from a vector given it's x,y,z components and the angle of rotation theta, and then tells OpenGL to use it as it's rotation matrix for the cube.
 
