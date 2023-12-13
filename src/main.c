@@ -239,7 +239,7 @@ void keybhandler(WPARAM wParam, char keyevent)
          }
       break;
       case VK_ESCAPE:
-         SendMessage(EGL_GetWindowHWND(), WM_CLOSE, 0x0L, 0x0L);
+         EGL_CloseWindow();
       break;
    }
    return;
