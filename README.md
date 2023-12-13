@@ -13,3 +13,5 @@ The function getRotationMatrixFromQuaternion() creates a rotation matrix from a 
 Quaternions are used to avoid gimbal lock by providing an additional axis of movement, rather than rotating over the axes in the object's space.
 
 DirectX is copyrighted by the Microsoft Corporation and they are the ones who have the copyright on it. This project is provided for free. The assets used in this projects were recreated for it, no assets have been ripped from the original software.
+
+Requires [libenigl](https://github.com/aaroncdc/libenigl) .

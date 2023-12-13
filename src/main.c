@@ -1,12 +1,13 @@
 #include <GL/enigl.h>
 #include <GL/glu.h>
 #include <math.h>
+#include "resource.h"
 #include "bitmap.h"
 
 #define GLE_ENABLE_DEPTH 1
 
 /* Global variables */
-const char * signature = "By Aaron CdC :3 ((2023)) https://github.com/aaroncdc";
+const char * signature = "By Enigmatico :3 2023";
 float rot_an = .0f;
 static GLfloat aspect = 1.33333333f;
 UCHAR * txData = 0L;
@@ -15,6 +16,7 @@ GLfloat light_ambient[] = { 0.0, 0.0, 0.0, 1.0 };
 GLfloat light_diffuse[] = { 1.0, 1.0, 1.0, 1.0 };
 GLfloat light_specular[] = { 1.0, 1.0, 1.0, 1.0 };
 GLfloat light_position[] = { -1.0, -1.0, 1.5, 0.0 };
+HICON appIcon = NULL;
 
 void getRotationMatrixFromQuaternion(GLfloat *rotm, GLfloat theta, GLfloat x, GLfloat y, GLfloat z) {
    float an = (float)sin((double)theta/2.0f);
@@ -226,17 +228,40 @@ void reshape(unsigned int width, unsigned int height) {  // GLsizei for non-nega
    return;
 }
 
+void keybhandler(WPARAM wParam, char keyevent)
+{
+   switch(wParam)
+   {
+      case VK_F12:
+         if(keyevent == 1)
+         {
+            EGL_ToggleFullScreen();
+         }
+      break;
+      case VK_ESCAPE:
+         SendMessage(EGL_GetWindowHWND(), WM_CLOSE, 0x0L, 0x0L);
+      break;
+   }
+   return;
+}
+
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevinstance,
                     LPSTR lpCmdLine, int nShowCmd)
 {
    GLWINDOW *win;
-   CreateGLWindow(NULL);
-   SetInitFunction((INITFUNC)initGL);
-   SetRenderFunction((RENDERFUNC)display);
-   SetIdleFunction((IDLEFUNC)display);
-   SetReshapeFunction((RESHAPEFUNC)reshape);
-   SetWindowTitleText("Direct3D test but it's OpenGL");
-   ShowGLWindow(NULL);
+
+   //appIcon = LoadIcon(EGL_GetWindowHINST(), MAKEINTRESOURCE(IDI_APPICON));
+   appIcon = (HICON) LoadImage(NULL, (LPCSTR)"IDI_APPICON", IMAGE_ICON, 32, 32, LR_DEFAULTCOLOR);
+
+   EGL_CreateGLWindow(NULL);
+   EGL_SetInitFunction((INITFUNC)initGL);
+   EGL_SetRenderFunction((RENDERFUNC)display);
+   EGL_SetIdleFunction((IDLEFUNC)display);
+   EGL_SetReshapeFunction((RESHAPEFUNC)reshape);
+   EGL_SetKeyHandlerFunction((KEYBHANDFUNC)keybhandler);
+   EGL_SetWindowTitleText("Direct3D test but it's OpenGL");
+
+   EGL_ShowGLWindow(NULL, appIcon, "IDI_APPICON");
 
    if(txData != NULL)
    {
